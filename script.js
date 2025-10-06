@@ -87,7 +87,9 @@ document.getElementById('btnForEach').addEventListener('click', forEachFoods)
   - Display the results as an unordered list (<ul>)
 */
 function uppercaseList () {
-  // TODO: Write your code here
+  const uppercasedFoods = foods.map(food => food.toUpperCase())
+  const listItems = uppercasedFoods.map(food => `<li class="list-group-item">${food}</li>`).join('')
+  render(`<ul class="list-group">${listItems}</ul>`)
 }
 
 /* 
@@ -97,7 +99,9 @@ function uppercaseList () {
   - You may use a backwards loop OR the built-in .reverse()
 */
 function reverseList () {
-  // TODO: Write your code here
+  const reversedFoods = [...foods].reverse()
+  const listItems = reversedFoods.map(food => `<li class="list-group-item">${food}</li>`).join('')
+  render(`<ul class="list-group">${listItems}</ul>`)
 }
 
 /* 
@@ -107,7 +111,16 @@ function reverseList () {
   - Display it in a Bootstrap card with a heading like "Today's Pick"
 */
 function randomFoodPicker () {
-  // TODO: Write your code here
+  const randomIndex = Math.floor(Math.random() * foods.length)
+  const randomFood = foods[randomIndex]
+  render(`
+    <div class="card shadow-sm mx-auto" style="max-width: 400px;">
+      <div class="card-body text-center">
+        <h5 class="card-title text-primary mb-3">Today's Pick</h5>
+        <p class="card-text fs-4 fw-bold">${randomFood}</p>
+      </div>
+    </div>
+  `)
 }
 
 /* 
@@ -118,7 +131,12 @@ function randomFoodPicker () {
   - Display results in the format: Food — X letters
 */
 function wordLengths () {
-  // TODO: Write your code here
+  let output = '<ul class="list-group">'
+  for (const food of foods) {
+    output += `<li class="list-group-item">${food} — ${food.length} letters</li>`
+  }
+  output += '</ul>'
+  render(output)
 }
 
 // ---- Event listeners for the new buttons ----
