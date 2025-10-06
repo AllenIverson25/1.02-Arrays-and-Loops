@@ -12,7 +12,13 @@ function render (html) {
      - Output all foods into the #out div (as <p> tags or list items)
 */
 function listFoods () {
-  // code goes here
+ 
+
+  let output = ''
+  for (const food of foods) {
+    output += `<p>${food}</p>`
+  }
+  render(output)
 }
 
 /* 
@@ -21,7 +27,12 @@ function listFoods () {
      - Output foods as an ordered list (<ol><li>...</li></ol>)
 */
 function numberedFoods () {
-  // code goes here
+  let output = `<ol class="list-group list-group-numbered">`
+  for (let i = 0; i < foods.length; i++) {
+    output += `<li class="list-group-item">${foods[i]}</li>`
+  }
+  output += '</ol>'
+  render(output)
 }
 
 /* 
@@ -32,7 +43,23 @@ function numberedFoods () {
      - If no matches, display a "not found" message
 */
 function filterFoods () {
-  // code goes here
+  const letter = prompt('Pick a letter to filter foods by:')
+  if (!letter) {
+    render('<p class="text-danger">No letter entered. Please try again.</p>') 
+    return
+  }
+  const lower = letter.toLowerCase()
+  const matches = foods.filter(f => f.toLowerCase().startsWith(lower))
+
+  if (matches.length === 0) {
+    render(`<p class="text-danger m-0">No foods found starting with '<strong>${letter}</strong>'.</p>`)
+    return
+  }
+
+  const list = matches.map(item => `<li class="list-group-item">${item}</li>`).join('')
+
+ render (`<ul class="list-group">${list}</ul>`)
+
 }
 
 /* 
